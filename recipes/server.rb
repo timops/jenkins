@@ -79,7 +79,8 @@ node['jenkins']['server']['plugins'].each do |name|
 end
 
 remote_file File.join(home_dir, "jenkins.war") do
-  source "#{node['jenkins']['mirror']}/war/#{node['jenkins']['server']['version']}/jenkins.war"
+  #source "#{node['jenkins']['mirror']}/war/#{node['jenkins']['server']['version']}/jenkins.war"
+  source "#{node['jenkins']['gimmesomewar']}"
   checksum node['jenkins']['server']['war_checksum'] unless node['jenkins']['server']['war_checksum'].nil?
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
