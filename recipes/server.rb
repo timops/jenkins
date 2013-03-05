@@ -78,10 +78,19 @@ node['jenkins']['server']['plugins'].each do |name|
   end
 end
 
+=begin
 remote_file File.join(home_dir, "jenkins.war") do
-  #source "#{node['jenkins']['mirror']}/war/#{node['jenkins']['server']['version']}/jenkins.war"
-  source "#{node['jenkins']['gimmesomewar']}"
+  source "#{node['jenkins']['mirror']}/war/#{node['jenkins']['server']['version']}/jenkins.war"
   checksum node['jenkins']['server']['war_checksum'] unless node['jenkins']['server']['war_checksum'].nil?
+  owner node['jenkins']['server']['user']
+  group node['jenkins']['server']['group']
+  notifies :restart, "runit_service[jenkins]"
+end
+=end
+
+template File.join(home_dir, "jenkins.war") do
+  source node['jenkins']['gimmesomewar']
+  local true
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['group']
   notifies :restart, "runit_service[jenkins]"
