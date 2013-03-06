@@ -23,7 +23,5 @@
 #
 
 default['jenkins']['mirror'] = "http://mirrors.jenkins-ci.org"
-# Demo magic!
-default['jenkins']['gimmesomewar'] = "/vagrant/jenkins.war"
 default['jenkins']['java_home'] = ENV['JAVA_HOME']
 default['jenkins']['iptables_allow'] = "disable"
