@@ -41,7 +41,7 @@ default['jenkins']['server']['port'] = 8080
 default['jenkins']['server']['host'] = node['fqdn']
 default['jenkins']['server']['url']  = "http://#{node['jenkins']['server']['host']}:#{node['jenkins']['server']['port']}"
 
-default['jenkins']['server']['plugins'] = []
+default['jenkins']['server']['plugins'] = [ 'git', 'build-pipeline-plugin' ]
 default['jenkins']['server']['jvm_options'] = nil
 
 default['jenkins']['http_proxy']['variant']              = nil
