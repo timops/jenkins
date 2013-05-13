@@ -98,7 +98,7 @@ end
 
 ruby_block "local deploy" do
   block do
-    FileUtils.copy(node['jenkins']['gimmesomewar'], File.join(home_dir, "jenkins.war"))
+    FileUtils.copy(node['jenkins']['gimmesomewar'], ::File.join(home_dir, "jenkins.war"))
   end
   not_if { ::File.exists?(::File.join(home_dir, "jenkins.war")) }
   action :create
