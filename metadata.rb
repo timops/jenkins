@@ -8,7 +8,8 @@ version          "0.8.0"
 
 depends "java"
 depends "runit", ">= 1.0.0"
+depends "apt"
 
-suggests "apache2"
-suggests "nginx"
-suggests "iptables"
+depends "apache2"
+depends "nginx"
+depends "iptables"
