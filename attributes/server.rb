@@ -23,7 +23,7 @@
 #
 
 default['jenkins']['server']['home']     = "/var/lib/jenkins"
-default['jenkins']['server']['data_dir'] = File.join(default['jenkins']['server']['home'], "jenkins-data")
+default['jenkins']['server']['data_dir'] = ::File.join(default['jenkins']['server']['home'], "jenkins-data")
 default['jenkins']['server']['log_dir']  = "/var/log/jenkins"
 
 default['jenkins']['server']['user'] = "jenkins"

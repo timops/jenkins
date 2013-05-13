@@ -32,7 +32,7 @@ end
 
 home_dir = node['jenkins']['server']['home']
 data_dir = node['jenkins']['server']['data_dir']
-plugins_dir = File.join(node['jenkins']['server']['data_dir'], "plugins")
+plugins_dir = ::File.join(node['jenkins']['server']['data_dir'], "plugins")
 log_dir = node['jenkins']['server']['log_dir']
 
 [
@@ -76,7 +76,7 @@ node['jenkins']['server']['plugins'].each do |plugin|
     name = plugin
   end
 
-  remote_file File.join(plugins_dir, "#{name}.hpi") do
+  remote_file ::File.join(plugins_dir, "#{name}.hpi") do
     source "#{node['jenkins']['mirror']}/plugins/#{name}/#{version}/#{name}.hpi"
     owner node['jenkins']['server']['user']
     group node['jenkins']['server']['group']
@@ -87,7 +87,7 @@ node['jenkins']['server']['plugins'].each do |plugin|
 end
 
 =begin
-remote_file File.join(home_dir, "jenkins.war") do
+remote_file ::File.join(home_dir, "jenkins.war") do
   source "#{node['jenkins']['mirror']}/war/#{node['jenkins']['server']['version']}/jenkins.war"
   checksum node['jenkins']['server']['war_checksum'] unless node['jenkins']['server']['war_checksum'].nil?
   owner node['jenkins']['server']['user']
@@ -100,7 +100,7 @@ ruby_block "local deploy" do
   block do
     FileUtils.copy(node['jenkins']['gimmesomewar'], File.join(home_dir, "jenkins.war"))
   end
-  not_if { File.exists?(File.join(home_dir, "jenkins.war")) }
+  not_if { ::File.exists?(::File.join(home_dir, "jenkins.war")) }
   action :create
   notifies :restart, "runit_service[jenkins]"
 end
@@ -109,11 +109,11 @@ end
 log "plugins updated, restarting jenkins" do
   only_if do
     # This file is touched on service start/restart
-    pid_file = File.join(home_dir, "jenkins.start")
-    if File.exists?(pid_file)
-      htime = File.mtime(pid_file)
-      Dir[File.join(plugins_dir, "*.hpi")].select { |file|
-        File.mtime(file) > htime
+    pid_file = ::File.join(home_dir, "jenkins.start")
+    if ::File.exists?(pid_file)
+      htime = ::File.mtime(pid_file)
+      Dir[::File.join(plugins_dir, "*.hpi")].select { |file|
+        ::File.mtime(file) > htime
       }.size > 0
     end
   end

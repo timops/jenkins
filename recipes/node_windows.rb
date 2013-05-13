@@ -48,7 +48,7 @@ end
 
 remote_file jenkins_exe do
   source "http://maven.dyndns.org/2/com/sun/winsw/winsw/1.8/winsw-1.8-bin.exe"
-  not_if { File.exists?(jenkins_exe) }
+  not_if { ::File.exists?(jenkins_exe) }
 end
 
 execute "#{jenkins_exe} install" do

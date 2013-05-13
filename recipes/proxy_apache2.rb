@@ -63,7 +63,7 @@ template "#{node['apache']['dir']}/sites-available/jenkins" do
     :ssl_listen_ports => node['jenkins']['http_proxy']['ssl']['ssl_listen_ports']
   )
 
-  if File.exists?("#{node['apache']['dir']}/sites-enabled/jenkins")
+  if ::File.exists?("#{node['apache']['dir']}/sites-enabled/jenkins")
     notifies  :restart, 'service[apache2]'
   end
 end
